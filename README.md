@@ -28,9 +28,9 @@ Bulanık mantık (Fuzzy Logic) kullanarak çalışanların üretim performansın
 ## 📦 Kurulum
 
 1. Projeyi klonlayın:
-```bash
+```powershell
 git clone <repository-url>
-cd BulanikOdev
+cd Employee-Production-Fuzzy-Model
 ```
 
 2. Eclipse'te projeyi açın:
@@ -44,7 +44,18 @@ cd BulanikOdev
 
 ## 🚀 Kullanım
 
-1. Projeyi çalıştırın (`Main.java` içindeki `main` metodunu çalıştırın)
+1. Derle ve çalıştır (Windows PowerShell):
+
+```powershell
+# Derleme
+javac -cp "lib/jFuzzyLogic.jar" -d bin src/pkt/*.java
+
+# Çalıştırma (kullanıcı girdisi ile)
+java -cp "lib/jFuzzyLogic.jar;bin" pkt.Main
+
+# (Opsiyonel) Hazır senaryolar tablosu
+java -cp "lib/jFuzzyLogic.jar;bin" pkt.Scenarios
+```
 
 2. Program sizden şu bilgileri isteyecektir:
    - **Tecrübe (yıl)**: Çalışanın iş tecrübesi (örn: 5, 10, 15)
@@ -66,12 +77,15 @@ Yaş (yıl): 35
 ## 📁 Proje Yapısı
 
 ```
-BulanikOdev/
+Employee-Production-Fuzzy-Model/
 ├── src/
 │   └── pkt/
-│       ├── Main.java              # Ana uygulama sınıfı
-│       ├── CalisanUretim.java     # Bulanık mantık model sınıfı
-│       └── CalisanUretim.fcl      # Bulanık mantık kuralları (FCL)
+│       ├── Main.java                  # Ana uygulama (COG grafik açık, COA sayı çıktı)
+│       ├── Scenarios.java             # COG vs COA karşılaştırma senaryoları
+│       ├── OutputAreaPlotter.java     # İsteğe bağlı crisp çizgi PNG üretici
+│       ├── CalisanUretim.java         # Bulanık model yükleme/değerlendirme
+│       ├── CalisanUretim.fcl          # COG yöntemi (grafikler bu modelde açılır)
+│       └── CalisanUretim_COA.fcl      # COA yöntemi (karşılaştırma için)
 ├── lib/
 │   └── jFuzzyLogic.jar            # jFuzzyLogic kütüphanesi
 ├── bin/                           # Derlenmiş class dosyaları
@@ -116,9 +130,12 @@ Model, 18 adet bulanık mantık kuralı içermektedir. Kurallar, tecrübe, yaş 
 
 Detaylı kurallar için `src/pkt/CalisanUretim.fcl` dosyasına bakabilirsiniz.
 
-### Defuzzification
+### Durulama (Defuzzification)
 
-Çıkış değeri, **COG (Center of Gravity)** yöntemi ile hesaplanmaktadır.
+• Birincil yöntem: **COG (Center of Gravity)** – grafikler bu modelde gösterilir.
+• Karşılaştırma: **COA (Center of Area)** – konsola sayısal sonuç yazdırılır.
+
+Not: MOM/LOM/BOA varyantları bu sürümde kullanılmıyor.
 
 ## 💻 Geliştirme
 
