@@ -211,11 +211,18 @@ Bu bölümde, raporda kullanılan ekran görüntüleriyle bire bir uyumlu olacak
 
 Bu kombinasyonda Tecrübe=10 yılı, kullanılan üyelik fonksiyonlarına göre hem "Orta" hem de "Yüksek" kümelerine belirli derecelerde ait olmakta; Yaş=44 ise "Orta" ve "Yaşlı" kümeleri arasında bir geçiş bölgesine düşmektedir. Cinsiyet=1 değeri ise "Erkek" kümesine tam üyelik anlamına gelir. Girdi üyelik fonksiyonlarının şekli ve bu örneğin hangi bölgelerde kaldığı, Şekil 1'de gösterilen ekran görüntüsü ile desteklenmektedir (`girdi_uyelikler.png`).
 
+<img width="310" height="556" alt="girdi_uyelikleri" src="https://github.com/user-attachments/assets/e36f34bd-ee00-4fa7-86bc-3b1ebe75ecc8" />
+
+
 ### 5.2 Çıktı Agregasyonu ve COG/COA Sonuçları
 
 Bu girişler için `Main` sınıfı çalıştırıldığında, `ParcaSayisi` çıkış değişkeni için COG ve COA durulama yöntemleriyle elde edilen tahmini parç a sayısı değerleri konsola yazdırılmakta ve COG için agregasyon grafiği gösterilmektedir. Çıktının üyelik fonksiyonları, agregasyon (taralı alan) ve COG crisp noktası Şekil 2'de verilen `parca_uyelikler.png` ekran görüntüsünde birlikte gösterilmiştir.
 
+<img width="306" height="179" alt="parca_uyelikleri" src="https://github.com/user-attachments/assets/dc932274-7520-49b3-b0ec-01ebb19a388c" />
+
 Ayrıca, COG ve COA yöntemlerinin sayısal çıktılarının yan yana karşılaştırıldığı konsol görüntüsü, Şekil 3'te (`cog_coa_karsilastirma.png`) sunulmuştur. Bu şekil, aynı giriş için iki durulama yönteminin birbirine oldukça yakın sonuçlar verdiğini görsel olarak özetlemektedir.
+
+<img width="1236" height="358" alt="cog_coa_karsilastirma" src="https://github.com/user-attachments/assets/6beee0db-de6a-4694-8db1-9009882b00a7" />
 
 ---
 
