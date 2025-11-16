@@ -1,10 +1,10 @@
 # Çalışan Üretim Performansı İçin Bulanık Mantık Modeli  
 ## (Tecrübe – Yaş – Cinsiyet Temelli Tahmin)
 
-Öğrenci Adı Soyadı: …  
-Öğrenci No: …  
-Ders / Dönem: …  
-Teslim Tarihi: 09.11.2025  
+Öğrenci Adı Soyadı: Nadir Şensoy - Mustafa Erdoğan
+Öğrenci No: G231210373 - B221210308
+Ders / Dönem: Bulanık Mantık ve Yapay Sinir Ağlarına Giriş
+Teslim Tarihi: 15.11.2025  
 
 ---
 
@@ -24,25 +24,27 @@ Bu projede, bir çalışanın üreteceği parça sayısını tahmin etmek için 
 
 ## 2. Çalışan Performansını Etkileyen Faktörler ve Literatür Özeti
 
-Bu bölümde, modelde kullanılan girdi değişkenlerinin (iş tecrübesi, yaş, cinsiyet) üretim performansı üzerindeki etkisi literatür bulguları ile özetlenmektedir. Ayrıntılı analizler `arastirma.txt` dosyasında yapılan çalışmadan özetlenmiştir.
+Bu bölümde, modelde kullanılan girdi değişkenlerinin (iş tecrübesi, yaş, cinsiyet) üretim performansı üzerindeki etkisi, yeni `arastirma.txt` dosyasında derlenen akademik çalışmalara dayanarak özetlenmektedir.
 
-### 2.1 İş Tecrübesi, Öğrenme Eğrileri ve Performans
+### 2.1 İş Tecrübesi, Öğrenme / Deneyim Eğrileri ve Kariyer Platosu
 
-Üretim performansı üzerindeki en temel değişkenlerden biri iş tecrübesidir. Wright (1936) tarafından havacılık endüstrisinde ortaya konan öğrenme eğrisi teorisi, bir görevin kümülatif tekrar sayısı iki katına çıktığında bu göreve harcanan süre veya maliyetin belirli bir oranda azaldığını öne sürer. Çeşitli çalışmalar, tecrübe ile performans arasında güçlü ancak doğrusal olmayan bir ilişki bulunduğunu göstermektedir. İlk yıllarda öğrenme hızlıdır, performans üstel biçimde artar; ilerleyen yıllarda ise artış hızlanarak değil, yavaşlayarak devam eder ve belli bir noktadan sonra “performans platosu”na ulaşılır.
+İş tecrübesi–performans ilişkisi, klasik öğrenme eğrisi ve deneyim eğrisi yaklaşımlarıyla açıklanır. Wright’ın (1936) uçak endüstrisinde gözlemlediği öğrenme eğrisi, kümülatif üretim arttıkça birim başına işçilik süresinin öngörülebilir bir oranda azaldığını göstermektedir (Çalmaşur, Daştan, & Karaca, 2020). Yani çalışan, işe yeni başladığı dönemde aynı parçayı üretmek için daha fazla zaman harcar; tecrübe kazandıkça çevrim süresi kısalır ve vardiya başına üretilen parça sayısı artar.
 
-Bu yapı, tecrübenin “Az, Orta, Yüksek” gibi dilsel terimlerle ifade edilmesini ve bu terimlerin üst üste binen üyelik fonksiyonları ile temsil edilmesini uygun hale getirmektedir. Dolayısıyla klasik “Performans = β₀ + β₁·Tecrübe” tipi doğrusal modellerin yakalayamadığı karmaşıklık, bulanık mantık yaklaşımı ile daha gerçekçi biçimde modellenebilmektedir.
+Boston Consulting Group tarafından geliştirilen deneyim eğrisi yaklaşımı ise bu etkiyi sadece bireysel öğrenmeye değil, süreç iyileştirmeleri, organizasyonel bilgi birikimi ve verimlilik artışlarının tümüne bağlar (Çalmaşur vd., 2020). Ancak literatür, bu artışın sınırsız olmadığını; belirli bir kıdemden sonra performans artışının yavaşladığını ve “kariyer platosu” olarak adlandırılan bir durağanlık dönemine girildiğini göstermektedir (Özden’e atıfla, bkz. .2). Bu üç evre (hızlı öğrenme, yetkinlik ve plato), modeldeki “Az”, “Orta” ve “Yüksek/Kıdemli” tecrübe kümelerinin mantıksal temelini oluşturur.
 
-### 2.2 Yaş Faktörünün Ergonomik ve Fizyolojik Etkileri
+Araştırma bulguları, bu aşamaların kaçıncı yılda başladığına dair evrensel bir sınır önermemektedir; bunun bağlama ve iş analizine göre belirlenmesi gerektiği vurgulanmaktadır (Öztürk, 2008). Bu nedenle modelde kullanılan 0–5 (Az), 5–15 (Orta) ve 10–30+ (Yüksek) aralıkları, literatürdeki kavramsal çerçeve ile uyumlu, fakat bağlam-spesifik bir mühendislik varsayımı olarak korunmuştur. Kod tarafında bu aralıkları değiştirmeyi gerektirecek herhangi bir ampirik zorunluluk bulunmadığı için FCL dosyalarında değişiklik yapılmamıştır.
 
-Yaş, özellikle fiziksel işlerde performansı etkileyen önemli bir faktördür. Ergonomi ve iş fizyolojisi literatürü, kas gücü, aerobik kapasite ve reaksiyon süresi gibi göstergelerin genellikle 25–35 yaş aralığında zirve yaptığını, 40–45 yaş sonrasında ise kademeli bir azalış gösterdiğini ortaya koymaktadır. Bununla birlikte, yaşın tek başına performansı belirlemediği; uzun yıllara dayalı tecrübe, görev bilgisi, hata oranındaki azalma ve iş temposundaki istikrar gibi faktörlerin yaşa bağlı fizyolojik dezavantajları telafi edebildiği vurgulanmaktadır.
+### 2.2 Yaş Faktörünün Fiziksel Üretim Performansına Etkisi
 
-Bu nedenle modelde “Genç, Orta, Yaşlı” yaş kümeleri, hem fizyolojik eşikler hem de tecrübe ile etkileşim dikkate alınarak tanımlanmıştır. Örneğin, “Tecrübe Yüksek ve Yaş Yaşlı” durumunda performans orta-yüksek düzeyde kalabilirken, “Tecrübe Az ve Yaş Yaşlı” kombinasyonu daha düşük performansa işaret etmektedir.
+Yaş, özellikle sanayi ve inşaat gibi fiziksel efor gerektiren işlerde performansı etkileyen önemli bir değişkendir. Türkiye’de yaşlı nüfusun işgücüne katılım oranı artsa da, 65 yaş ve üzeri grubun istihdamı daha çok tarım ve hizmet sektörlerinde yoğunlaşmakta, sanayi ve benzeri ağır işlerde ise düşük kalmaktadır (İlke Vakfı, 2024). Bu durum, fiziksel olarak zorlayıcı işlerin yaşlı işgücü için sürdürülebilirliğinin sınırlı olduğuna işaret etmektedir.
 
-### 2.3 Cinsiyet Değişkeninin Ergonomi ve Antropometri Açısından Değerlendirilmesi
+İş sağlığı ve güvenliği literatürü, yaşla birlikte kas gücü, dayanıklılık ve koordinasyon gibi göstergelerde düşüş yaşanabileceğini, bunun da ergonomik olarak kötü tasarlanmış istasyonlarda performans kaybına yol açabileceğini belirtir (Bölükbaşı’na atıfla, bkz. .4). Bununla birlikte, modelin bağlamı gereği üretim hattında hâlâ çalışabilen “yaşlı” işçilerin zaten belirli bir minimum sağlık ve fiziki kapasite eşiğini karşıladığı (healthy worker effect) varsayılmaktadır (.3). Bu nedenle yaş değişkeni modelde “Genç, Orta, Yaşlı” kümeleri ile temsil edilmiş; sınırlar 18–35 (Genç), 30–50 (Orta) ve 45–60 (Yaşlı) olarak, literatürde önerilen kesin yaş eşikleri olmadığı için bağlam-spesifik ve ergonomi odaklı bir sınıflandırma şeklinde korunmuştur.
 
-Cinsiyet değişkeni, bu modelde bir önyargı unsuru olarak değil, ergonomik uyum açısından bir vekil (proxy) değişken olarak ele alınmıştır. Literatür, istatistiksel olarak erkeklerin ortalama kas kütlesi ve özellikle üst gövde gücü bakımından daha yüksek değerlere sahip olduğunu, buna karşılık bazı ince motor görevlerinde kadınların daha avantajlı olabileceğini göstermektedir. Ayrıca boy, kol uzunluğu gibi antropometrik farklılıklar iş istasyonu tasarımını ve erişim mesafelerini etkileyebilir.
+### 2.3 Cinsiyet Değişkeninin Antropometrik ve Ergonomik Temeli
 
-Modelde cinsiyet “0 = Kadın, 1 = Erkek” olarak sayısal bir girdi şeklinde alınmıştır. Bu değişken, “işin gerektirdiği fiziksel zorlanma” ile “çalışanın ortalama fizyolojik kapasitesi” arasındaki potansiyel uyumsuzluğu temsil etmektedir. Ergonomik açıdan iyi tasarlanmamış işlerde bu uyumsuzluk, bir vardiyada üretilen parça sayısına yansıyabilmektedir.
+Cinsiyet (0 = Kadın, 1 = Erkek) bu modelde bir yetkinlik veya beceri göstergesi değil, iş istasyonu tasarımındaki antropometrik farklılıkları temsil eden bir vekil değişkendir. Türkiye’de yapılan antropometrik çalışmalarda erkeklerin ortalama kol uzunluğu ve bazı vücut ölçülerinin kadınlara göre daha yüksek olduğu, bunun da standart (özellikle erkek ölçülerine göre) tasarlanmış hatlarda erişim ve duruş farkları yaratabildiği gösterilmiştir (.5).
+
+Eğer bir hattın çalışma yüksekliği ve erişim mesafeleri çoğunlukla belirli bir cinsiyetin antropometrik profiline göre ayarlanmışsa, diğer grupta yer alan çalışanlar için ergonomik uyumsuzluk (mismatch) ortaya çıkabilir (.5). Bu uyumsuzluk, daha sık eğilme/uzanma, dengesiz duruş ve fazladan hareket sayısı nedeniyle çevrim süresini uzatarak bir vardiyada üretilen parça sayısını düşürebilir. Dolayısıyla modelde cinsiyet değişkeni, “iş tasarımı ile çalışan profili arasındaki uyum”u temsil etmek üzere korunmuş; FCL dosyalarındaki 0–1 kodlaması güncel araştırma ile tutarlıdır ve değiştirilmesine gerek yoktur.
 
 ---
 
@@ -221,9 +223,9 @@ Ayrıca, COG ve COA yöntemlerinin sayısal çıktılarının yan yana karşıla
 
 ## 6. Durulama Yöntemlerinin Karşılaştırılması (COG vs COA)
 
-COG ve COA yöntemleri, aynı kural tabanı ve üyelik fonksiyonları üzerinde, yalnızca durulama aşamasında farklılık göstermektedir. Bu projede, hem örnek giriş (Tecrübe=10, Cinsiyet=1, Yaş=44) hem de `Scenarios` sınıfındaki sabit senaryolar için her iki yöntem de çalıştırılmıştır.
+COG ve COA yöntemleri, aynı kural tabanı ve üyelik fonksiyonları üzerinde, yalnızca durulama aşamasında farklılık göstermektedir. Bu projede hem örnek giriş (Tecrübe=10, Cinsiyet=1, Yaş=44) hem de `Scenarios` sınıfındaki sabit senaryolar için her iki yöntem de çalıştırılmıştır.
 
-Şekil 3'te (`cog_coa_karsilastirma.png`), COG ve COA yöntemlerine ait tahmini parça sayısı değerlerinin konsol çıktısı ekran görüntüsü verilmiştir. Bu ekran görüntüsü, her iki yöntemin de çoğu durumda birbirine çok yakın sonuçlar ürettiğini ve modelin genel eğilimini değiştirmediğini göstermektedir.
+Ancak yeni araştırma setinde COG ve COA yöntemlerinin matematiksel tanımlarını ve teorik avantaj/dezavantajlarını doğrudan karşılaştıran, atıf verilebilir nitelikte bir akademik kaynak bulunmamıştır. Mevcut kaynaklar (örneğin Güler & Demirkaya, 2022) bulanık kümeler ve üyelik fonksiyonlarını ele almakta, fakat durulama aşamasına ve COG/COA kıyasına girmemektedir. Bu nedenle bu raporda COG/COA farkı, yalnızca projedeki uygulama sonuçları (Şekil 3’teki konsol çıktısı) üzerinden nitel olarak yorumlanmış; yeni, kaynak gösterilemeyen teorik iddialar eklenmemiştir.
 
 ---
 
@@ -252,15 +254,30 @@ Bu proje kapsamında, çalışan üretim performansını (parça sayısı) tahmi
 - Yaş faktörünü fizyolojik kapasite ve ergonomik risklerle bağlantılı olarak,  
 - Cinsiyet değişkenini ise antropometrik ve fiziksel iş kapasitesi bağlamında tarafsız bir vekil değişken olarak ele almıştır.
 
-Geliştirilen kural tabanı ve üyelik fonksiyonları, literatürde yer alan genel eğilimler ve sektörel vaka analizleri ile tutarlı bir şekilde tasarlanmıştır. Durulama aşamasında COG ve COA yöntemleri uygulanmış, senaryolar üzerinden yapılan karşılaştırmada:
+Geliştirilen kural tabanı ve üyelik fonksiyonları, literatürde yer alan genel eğilimler ve özellikle Öztürk’ün (2008) üretim işletmesi vaka çalışmasında kullanılan performans derecelendirme yaklaşımı ile uyumlu olacak şekilde tasarlanmıştır. Çıktı kümesi “Düşük–Orta–Yüksek”, Öztürk’teki “Yetersiz / Normal / Yeterli” dilsel ölçeğini temsil edecek biçimde aralıklara yayılmış; “Orta” ve “Yüksek” bölgeleri daha geniş, “Düşük” bölgesi ise nispeten dar tutulmuştur (Öztürk, 2008).
 
-- Her iki yöntemin de benzer sonuçlar ürettiği,  
-- COG yönteminin daha pürüzsüz ve stabil bir çıktı yüzeyi sağladığı,  
-- COA’nın ise özellikle asimetrik durumlarda alanı ikiye bölme mantığı ile farklılaşabildiği  
+Durulama aşamasında COG ve COA yöntemleri uygulanmış; senaryo çıktılarında her iki yöntemin de benzer eğilimler ürettiği, COG değerlerinin ise grafiksel olarak daha “merkezî” ve sezgisel sonuçlar verdiği gözlenmiştir. Ancak COG/COA farkına ilişkin ayrıntılı teorik değerlendirme için, yeni araştırma setinde kaynaklı (atıf yapılabilir) akademik çalışma bulunmadığından, yorumlar proje çıktılarıyla sınırlı tutulmuştur.
 
-gözlemlenmiştir.
+Sonuç olarak, COG yöntemi bu tür bir karar destek problemi için ana durulama yöntemi olarak tercih edilmiş, COA ise alternatif ve karşılaştırma amaçlı ikinci yöntem olarak kullanılmaya devam etmiştir. Model, kullanılacak veriye ve sektörel koşullara göre üyelik fonksiyonları ve kural tabanı güncellenerek farklı iş ortamlarına uyarlanabilir. İleride yapılacak çalışmalarda, modele ek girdi değişkenleri (örneğin eğitim seviyesi, iş istasyonu ergonomi skoru, motivasyon düzeyi vb.) eklenmesi ve gerçek saha verisi ile istatistiksel kalibrasyon yapılması planlanabilir.
 
-Sonuç olarak, COG yöntemi bu tür bir karar destek problemi için ana durulama yöntemi olarak tercih edilmiş, COA ise alternatif ve karşılaştırma amaçlı ikinci yöntem olarak rapora dahil edilmiştir. Model, kullanılacak veriye ve sektörel koşullara göre üyelik fonksiyonları ve kural tabanı güncellenerek farklı iş ortamlarına uyarlanabilir. İleride yapılacak çalışmalarda, modele ek girdi değişkenleri (örneğin eğitim seviyesi, iş istasyonu ergonomi skoru, motivasyon düzeyi vb.) eklenmesi ve gerçek saha verisi ile istatistiksel kalibrasyon yapılması planlanabilir.
+
+## 9. Kaynakça (APA Biçimi)
+
+Çalmaşur, G., Daştan, H., & Karaca, Z. (2020). Bilgi yoğun hizmetler alt sektörlerinde öğrenme eğrileri. *Ömer Halisdemir Üniversitesi İktisadi ve İdari Bilimler Fakültesi Dergisi, 13*(1), 1–15. https://dergipark.org.tr/en/download/article-file/1202699
+
+Güler, A., & Demirkaya, H. (2022). Devlet okullarındaki idari yöneticilerin okul seçimlerinin bulanık DEMATEL yöntemi ile incelenmesi. *Aksaray Üniversitesi İktisadi ve İdari Bilimler Fakültesi Dergisi, 14*(3), 231–240. https://dergipark.org.tr/tr/download/article-file/1858425
+
+İlke Vakfı. (2024). *Dezavantajlı Çalışanlar: Yaşlılar*. https://ilke.org.tr/files/netstk/50/web/115/5134/dosyalar/dezavantajli_calisanlar_w.pdf
+
+ISARDER. (2022). *İş ve İnsan Dergisi / Journal of Human and Work, 14*(4) [Tam sayı]. https://www.isarder.org/2022/vol.14_issue.4_full_issue.pdf
+
+Mardin Artuklu Üniversitesi. (t.y.). *Mardin Artuklu Üniversitesi öğrencilerinin antropometrik özellikleri* [Makale]. https://dergipark.org.tr/en/download/article-file/1208767
+
+Özden, Y. (2001). *Çokuluslu işletmelerde performans yönetimi* [Tez]. Dokuz Eylül Üniversitesi. (Özden’e atıf: .2). https://avesis.deu.edu.tr/dosya?id=cfb6edf6-64e4-4511-9510-ca788640678b
+
+Bölükbaşı, P. (2007). Yaşlı işgücünün iş sağlığı ve iş güvenliği sorunları. *Çalışma ve Toplum, 12*, 185–204. (Bölükbaşı’na atıf: .4). https://dergipark.org.tr/tr/download/article-file/337652
+
+Öztürk, S. (2008). *Bir üretim işletmesinde bireysel performans değerleme sistemi kurulumu ve bir karar destek sistemi tasarımı* (Yüksek lisans tezi). Başkent Üniversitesi Fen Bilimleri Enstitüsü, Ankara. https://core.ac.uk/download/pdf/147013362.pdf
 
 
 Not: Bu metni Word’e aktarırken sayfa düzeni, yazı tipi ve satır aralıklarını ödev formatına göre yeniden düzenlemeniz ve kendi ad–numara bilgilerinizi girmeniz gerekmektedir.
