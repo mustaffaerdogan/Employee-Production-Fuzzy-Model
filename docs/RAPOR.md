@@ -226,6 +226,23 @@ Ayrıca, COG ve COA yöntemlerinin sayısal çıktılarının yan yana karşıla
 
 <img width="1236" height="358" alt="cog_coa_karsilastirma" src="https://github.com/user-attachments/assets/6beee0db-de6a-4694-8db1-9009882b00a7" />
 
+### 5.3 Örnek Girdi İçin Çalışan Kurallar
+
+Tecrübe = 10 yıl, Cinsiyet = 1 ve Yaş = 44 için FCL içindeki üyelik fonksiyonları incelendiğinde;
+
+- Tecrübe değişkeni hem **Orta** hem **Yüksek** kümelerine anlamlı derecede üyedir.  
+- Yaş değişkeni **Orta** ve **Yaşlı** kümeleri arasında geçiş bölgesindedir.  
+- Cinsiyet değişkeni **Erkek** kümesine tam üyedir.
+
+Bu nedenle, özellikle aşağıdaki kurallar belirli bir aktivasyon derecesiyle devreye girmektedir:
+
+- **Kural 7:** IF Tecrube IS Orta AND Yas IS Genc AND Cinsiyet IS Erkek THEN ParcaSayisi IS Yuksek  
+- **Kural 9:** IF Tecrube IS Orta AND Yas IS Orta AND Cinsiyet IS Erkek THEN ParcaSayisi IS Yuksek  
+- **Kural 12:** IF Tecrube IS Yuksek AND Yas IS Genc AND Cinsiyet IS Erkek THEN ParcaSayisi IS Yuksek  
+- **Kural 14:** IF Tecrube IS Yuksek AND Yas IS Orta AND Cinsiyet IS Erkek THEN ParcaSayisi IS Yuksek
+
+Yaşın 44 olması, Genc kümesindeki üyeliği düşürdüğü için Kural 9 ve 14, Kural 7 ve 12’ye göre daha yüksek ağırlıkla katkı yapmaktadır. Tüm bu kurallardan gelen “Yüksek” çıktıları, Şekil 2’de görülen taralı alanı oluşturmaktadır.
+
 ---
 
 ## 6. Durulama Yöntemlerinin Karşılaştırılması (COG vs COA)
@@ -233,6 +250,20 @@ Ayrıca, COG ve COA yöntemlerinin sayısal çıktılarının yan yana karşıla
 COG ve COA yöntemleri, aynı kural tabanı ve üyelik fonksiyonları üzerinde, yalnızca durulama aşamasında farklılık göstermektedir. Bu projede hem örnek giriş (Tecrübe=10, Cinsiyet=1, Yaş=44) hem de `Scenarios` sınıfındaki sabit senaryolar için her iki yöntem de çalıştırılmıştır.
 
 Ancak yeni araştırma setinde COG ve COA yöntemlerinin matematiksel tanımlarını ve teorik avantaj/dezavantajlarını doğrudan karşılaştıran, atıf verilebilir nitelikte bir akademik kaynak bulunmamıştır. Mevcut kaynaklar (örneğin Güler & Demirkaya, 2022) bulanık kümeler ve üyelik fonksiyonlarını ele almakta, fakat durulama aşamasına ve COG/COA kıyasına girmemektedir. Bu nedenle bu raporda COG/COA farkı, yalnızca projedeki uygulama sonuçları (Şekil 3’teki konsol çıktısı) üzerinden nitel olarak yorumlanmış; yeni, kaynak gösterilemeyen teorik iddialar eklenmemiştir.
+
+### 6.1 COG Durulama Sonucunun Sayısal Olarak Gösterimi (Özet)
+
+COG yöntemi, Şekil 2’de görülen toplam taralı alanın ağırlık merkezini hesaplayarak tek bir net (crisp) değer üretir. Bu işlem, teorik olarak aşağıdaki integral ifadesiyle tanımlanır:
+
+$$ z_{COG} = \frac{\int z \cdot \mu_{ParcaSayisi}(z) \, dz}{\int \mu_{ParcaSayisi}(z) \, dz} $$
+
+Örneğimizde, aktif kuralların büyük çoğunluğu **Yüksek** performans kümesini ateşlediği için taralı alanın ağırlığı 300–500 aralığında yoğunlaşmaktadır. Üyelik fonksiyonları üçgen/yamuk yapıda olduğundan, bu integraller uygulamada parça parça üçgensel alanların momentleri şeklinde yaklaşık hesaplanabilir:
+
+- Her bir üçgen/yamuk parça için alan \(A_i\) ve ağırlık merkezi \(z_i\) bulunur.  
+- Toplam alan \(A_{toplam} = \sum A_i\) ve moment \(M = \sum A_i \cdot z_i\) hesaplanır.  
+- Crisp çıktı değeri \(z_{COG} = M / A_{toplam}\) şeklinde elde edilir.
+
+`CalisanUretim.fcl` ve `Main` birlikte çalıştırıldığında, jFuzzyLogic bu adımları sayısal olarak gerçekleştirerek Şekil 2’deki taralı alan için **COG crisp** değerini hesaplamakta ve bu değer de konsolda “[COG] …” satırı olarak raporlanmaktadır.
 
 ---
 
