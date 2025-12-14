@@ -10,6 +10,8 @@ import java.util.Scanner;
 import org.neuroph.core.NeuralNetwork;
 import org.neuroph.core.data.DataSet;
 import org.neuroph.core.data.DataSetRow;
+import org.neuroph.core.events.LearningEvent;
+import org.neuroph.core.events.LearningEventListener;
 import org.neuroph.nnet.MultiLayerPerceptron;
 import org.neuroph.nnet.learning.MomentumBackpropagation;
 import org.neuroph.util.TransferFunctionType;
@@ -18,6 +20,7 @@ public class RaporTest {
 
     public static void main(String[] args) {
         System.out.println("Rapor icin testler baslatiliyor...");
+        System.out.println("Her deney icin epoch bazli hata degerleri kaydediliyor...\n");
         
         // 1. Load Dataset
         DataSet fullSet = loadDataSet("data_set.txt");
@@ -53,45 +56,81 @@ public class RaporTest {
             {4, 0.1, 0.2}   // Simple
         };
 
-        // 4. Run Experiments
+        // Create grapher
+        EpochGrapher grapher = new EpochGrapher();
+
+        // 4. Run Experiments and collect epoch data
         for (int i = 0; i < experiments.length; i++) {
             int hiddenNeurons = (int) experiments[i][0];
             double learningRate = experiments[i][1];
             double momentum = experiments[i][2];
 
-            runExperiment(i + 1, trainSet, testSet, hiddenNeurons, learningRate, momentum);
+            EpochGrapher.ExperimentData expData = runExperimentWithEpochTracking(
+                i + 1, trainSet, testSet, hiddenNeurons, learningRate, momentum);
+            grapher.addExperiment(expData);
         }
         
         System.out.println("--------------------------------------------------------------------------------------");
         System.out.println("Tum testler tamamlandi.");
+        System.out.println("\nEpoch bazli grafik olusturuluyor...");
+        
+        // Display graph
+        grapher.display();
+        
+        // Save graph to file
+        grapher.saveToFile("docs/img/epoch_mse_grafik.png");
+        
+        System.out.println("Grafik goruntulendi ve kaydedildi.");
     }
 
-    private static void runExperiment(int expNo, DataSet trainSet, DataSet testSet, int hiddenNeurons, double learningRate, double momentum) {
+    private static EpochGrapher.ExperimentData runExperimentWithEpochTracking(
+            int expNo, DataSet trainSet, DataSet testSet, 
+            int hiddenNeurons, double learningRate, double momentum) {
+        
+        // Create experiment data container
+        String expName = String.format("Exp%d(H:%d,LR:%.1f,M:%.1f)", 
+                                       expNo, hiddenNeurons, learningRate, momentum);
+        EpochGrapher.ExperimentData expData = new EpochGrapher.ExperimentData(expName);
+        
         // Create Network
-        MultiLayerPerceptron neuralNet = new MultiLayerPerceptron(TransferFunctionType.SIGMOID, 3, hiddenNeurons, 1);
+        MultiLayerPerceptron neuralNet = new MultiLayerPerceptron(
+            TransferFunctionType.SIGMOID, 3, hiddenNeurons, 1);
 
         // Configure Learning Rule
         MomentumBackpropagation learningRule = new MomentumBackpropagation();
         learningRule.setLearningRate(learningRate);
         learningRule.setMomentum(momentum);
         learningRule.setMaxError(0.0001);
-        learningRule.setMaxIterations(2000); // Limit iterations for speed
+        learningRule.setMaxIterations(100); // Reduced for graph clarity
+        
+        // Add listener to track epoch errors
+        learningRule.addListener(new LearningEventListener() {
+            @Override
+            public void handleLearningEvent(LearningEvent event) {
+                MomentumBackpropagation bp = (MomentumBackpropagation) event.getSource();
+                double trainError = bp.getTotalNetworkError();
+                double testError = calculateMSE(neuralNet, testSet);
+                expData.addEpochData(trainError, testError);
+            }
+        });
 
         neuralNet.setLearningRule(learningRule);
 
         // Train
         neuralNet.learn(trainSet);
 
-        // Calculate MSE
+        // Calculate final MSE
         double trainMSE = calculateMSE(neuralNet, trainSet);
         double testMSE = calculateMSE(neuralNet, testSet);
 
         // Print Result
         System.out.printf("%-8d | %-15d | %-13.2f | %-8.2f | %-10.6f | %-10.6f%n", 
                           expNo, hiddenNeurons, learningRate, momentum, trainMSE, testMSE);
+        
+        return expData;
     }
 
-    private static double calculateMSE(NeuralNetwork net, DataSet dataSet) {
+    private static double calculateMSE(NeuralNetwork<?> net, DataSet dataSet) {
         double totalError = 0;
         for (DataSetRow row : dataSet.getRows()) {
             net.setInput(row.getInput());

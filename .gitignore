@@ -93,6 +93,9 @@ Desktop.ini
 # Package files
 *.jar
 !lib/jFuzzyLogic.jar
+!lib/neuroph-core-2.93.jar
+!lib/slf4j-api-1.7.30.jar
+!lib/slf4j-nop-1.7.30.jar
 
 # Archive files
 *.zip
